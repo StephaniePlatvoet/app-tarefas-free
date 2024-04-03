@@ -1,10 +1,3 @@
-# edit -> nome_pasta + caminho_pasta
-
-# source venv/bin/activate
-# pip install flask (feito)
-# pip install Flask-SQLAlchemy (feito)
-# pip install sqlalchemy
-# python app.py
 
 from app_files.adiar import adiar
 from app_files.BDcriar import create_db
@@ -26,9 +19,10 @@ import os
 app = Flask(__name__)
 app.secret_key = 'chave'
 
-caminho_pasta_database = os.path.join(os.path.dirname(__file__), 'database')
+caminho_pasta_database = '/Users/stephanietrabalho/Desktop/proj/database'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(caminho_pasta_database, 'tarefas.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+
 db = SQLAlchemy(app)
 app.config["DEBUG"] = True
 
@@ -51,7 +45,6 @@ def call_refresh0():
 @app.route('/refreshAniversarios')
 def call_refreshAniversarios():
     return refresh(Tarefa,db,classe_filter='aniversarios')
-
 
 
 # filtros date
@@ -131,28 +124,14 @@ def criar_tarefa():
 
 @app.cli.command("import-csv-birthdays") #flask import-csv-birthdays
 def import_csv():
-    name_csv_file = caminho_pasta + '/Livro6.csv'
+    name_csv_file = caminho_pasta_database + '/Livro6.csv'
     criar_tarefas(Tarefa, db,name_csv_file)
 
 @app.cli.command("import-csv") #flask import-csv
 def import_csv():
-    name_csv_file = caminho_pasta + '/Livro4.csv'
+    name_csv_file = caminho_pasta_database + '/Livro4.csv'
     criar_tarefas(Tarefa, db,name_csv_file)
 
 if __name__ == "__main__":
     app.run(debug=True)
 
-#flask import-csv
-#flask import-csv-birthdays
-# app_files app.py
-# conda deactivate
-# ngrok http 127.0.0.1:5000
-# sqlite3 database/tarefas.db (SQLite version 3.39.5 ) ; .databases ; .tables ; .exit ; select * from tarefas ; SELECT name FROM pragma_table_info('tarefas') ;
-
-
-# app_files --version (Python 3.9.6);
-# pip --version (pip 22.3.1);
-# ngrok --version (ngrok version 3.3.1);
-# brew --version (Homebrew 4.1.0);
-# flask-ngrok (6.8.0) ;
-# wget --version (GNU Wget 1.21.4 compilado a darwin22.4.0
