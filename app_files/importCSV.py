@@ -23,7 +23,7 @@ def criar_tarefas(task_class,db,name_csv_file):
             data_proxima = calcular_proxima_data(data_primeira_vez,proximo_domingo,intervalo_repeticao_value,intervalo_repeticao_mode,primeiraVez = True)
             data_proxima_seguinte = calcular_proxima_data(data_proxima, proximo_domingo, intervalo_repeticao_value, intervalo_repeticao_mode, primeiraVez=False)
             print(" . ")
-            print(descricao, feita, data_primeira_vez,data_proxima,data_proxima_seguinte, intervalo_repeticao_mode, intervalo_repeticao_value, proximo_domingo, classe, notas, ordem, owner)
+            print(descricao)
             criarImport(task_class,db, descricao, feita, data_primeira_vez,data_proxima,data_proxima_seguinte, intervalo_repeticao_mode, intervalo_repeticao_value, proximo_domingo, classe, notas, ordem, owner)
             print("----")
     return redirect(url_for('home') + '#content')
